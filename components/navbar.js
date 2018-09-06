@@ -16,8 +16,11 @@ const styles = StyleSheet.create({
         color: 'white'
     },
     container: {
-      borderBottomWidth: 1,
-      borderBottomColor: '#D6D7DA',
-      backgroundColor: 'blue'  
+        paddingTop: 35,
+        paddingBottom: 15,   
+        alignItems: 'center',
+        borderBottomWidth: 1,
+        borderBottomColor: '#D6D7DA',
+        backgroundColor: 'blue'  
     }
 });
