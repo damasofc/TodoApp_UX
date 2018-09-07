@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import NavBar from './navbar';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-export default function ListItem({checked, detail, press}) {
+export default function ListItem({checked, detail, press,pressD}) {
     return (
       <View style={styles.container}>
       {
@@ -13,6 +13,7 @@ export default function ListItem({checked, detail, press}) {
 
       }
         <Text>{detail}</Text>
+        <Icon onPress={pressD} style={styles.iconS} name={'delete'} size={25} color={'blue'} />
       </View>
     );
 }

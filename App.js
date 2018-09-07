@@ -1,28 +1,51 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import NavBar from './components/navbar';
 import { createBottomTabNavigator } from 'react-navigation';
 import Active from './components/Active';
 import Checked from './components/Checked';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ListItem from './components/ListItem';
+import All from './components/All';
 
-class App extends React.Component {
+export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       todo : [
         {
-          checked: false,
-          detail: 'Ir al super'
+          checked: true,
+          detail: 'ir ac omrpa'
         },
         {
-          checked: true,
-          detail: 'Ir AL mall'
+          checked: false,
+          detail: 'ir por el'
         }
-      ]
+      ],
     }
    this.onPress = this.onPress.bind(this);
+   this.createTo = this.createTo.bind(this);
+   this.delete = this.delete.bind(this);
+  }
+
+  createTo(detail)
+  {
+    let arr = this.state.todo.slice();
+    arr.push({checked: false,detail: detail});
+    this.setState({
+      todo: arr
+    });
+
+    console.log(this.state.todo);
+    this.forceUpdate();
+  }
+
+  delete(key){
+    this.setState({
+      todo: this.state.todo.splice(key,1)
+    })
+    this.forceUpdate();
+    
   }
 
   onPress(key){
@@ -32,16 +55,13 @@ class App extends React.Component {
       todo: arr
     });
   }
-  
+
   render() {
-    {screenProps: {this.state.todo}}
     return (
-      <View style={styles.container}>
-        <NavBar title={"Reactive Todos"} />
-        {this.state.todo.map((it,i) => {
-          return <ListItem key={i} press={() => this.onPress(i)} checked={it.checked} detail={it.detail} />
-        }) }
-      </View>
+      <Navigator screenProps={{ data: this.state.todo,
+                                 del: k => this.delete(k),
+                                 press:val => this.onPress(val),
+                                  create:d => this.createTo(d) }} />
     );
   }
 }
@@ -54,9 +74,9 @@ const styles = StyleSheet.create({
 });
 
 
-export default createBottomTabNavigator(
+const Navigator = createBottomTabNavigator(
   {
-    All: App,
+    All: All,
     Active: Active,
     Checked: Checked,
   },
